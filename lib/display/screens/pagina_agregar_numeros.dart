@@ -67,7 +67,9 @@ class _PaginaAgregarNumerosState extends State<PaginaAgregarNumeros> {
               onPressed: () {
                 _agregarNumero(
                   despuesDeAgregar: (numeroDeTelofono) {
-                    numeroDeTelofono.abrirEnWhatsApp();
+                    final mensaje = _mensajeController.text;
+                    numeroDeTelofono.abrirEnWhatsApp(
+                        mensaje: mensaje.isEmpty ? null : mensaje);
                   },
                 );
               },
@@ -116,13 +118,11 @@ class _PaginaAgregarNumerosState extends State<PaginaAgregarNumeros> {
       } else {
         final id = Uuid().v1();
         final descripcion = _descripcionController.text;
-        final mensaje = _mensajeController.text;
         final numeroDeTelefono = NumeroDeTelefono(
           id: id,
           numeroDeTelefonoPlano: numeroPlano,
           numeroDeTelefonoFormateado: numeroConFormato,
           descripcion: descripcion,
-          mensaje: mensaje,
         );
 
         widget.alAgregar(numeroDeTelefono);
